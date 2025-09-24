@@ -27,8 +27,10 @@
       container.appendChild(buttonscontainer);
 
       resetbutton.textContent = "RESET";
+      resetbutton.classList.add("reset");
       resetbutton.onclick = () => (display.innerHTML = "00:00:000");
       srsbutton.textContent = "START";
+      srsbutton.classList.add("start");
 
       // Use a requestAnimationFrame-based stopwatch: mm:ss:ms
       (function () {
@@ -65,6 +67,8 @@
             rafId = requestAnimationFrame(update);
             running = true;
             srsbutton.textContent = "STOP";
+            srsbutton.classList.remove("start", "resume");
+            srsbutton.classList.add("stop");
           } else {
             // stop/pause
             cancelAnimationFrame(rafId);
@@ -72,7 +76,15 @@
             elapsed = Date.now() - startTime;
             running = false;
             // show RESUME if we've accumulated time, otherwise keep START
-            srsbutton.textContent = elapsed > 0 ? "RESUME" : "START";
+            if (elapsed > 0) {
+              srsbutton.textContent = "RESUME";
+              srsbutton.classList.remove("start", "stop");
+              srsbutton.classList.add("resume");
+            } else {
+              srsbutton.textContent = "START";
+              srsbutton.classList.remove("stop", "resume");
+              srsbutton.classList.add("start");
+            }
           }
         };
 
@@ -86,6 +98,8 @@
           elapsed = 0;
           startTime = null;
           srsbutton.textContent = "START";
+          srsbutton.classList.remove("stop", "resume");
+          srsbutton.classList.add("start");
           display.innerHTML = format(0);
         };
       })();
