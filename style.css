@@ -24,6 +24,8 @@ h1 {
   flex-direction: column;
   gap: 20px;
   align-items: center;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 .buttonscontainer {
   display: flex;
@@ -41,6 +43,11 @@ h1 {
   width: 70%;
   height: 50px;
   border-radius: 99999px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 .button {
   display: block;
