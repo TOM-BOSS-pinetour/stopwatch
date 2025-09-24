@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <script>
+      const container = document.createElement("div");
+      const display = document.createElement("div");
+      const buttonscontainer = document.createElement("div");
+      const srsbutton = document.createElement("button");
+      const resetbutton = document.createElement("button");
+
+      buttonscontainer.classList.add("buttonscontainer");
+      container.classList.add("container");
+      display.classList.add("display");
+      srsbutton.classList.add("button");
+      resetbutton.classList.add("button");
+
+      container.appendChild(display);
+      buttonscontainer.appendChild(srsbutton);
+      buttonscontainer.appendChild(resetbutton);
+      container.appendChild(buttonscontainer);
+
+      resetbutton.textContent = "RESET";
+      resetbutton.onclick = () => (display.innerHTML = "00:00:000");
+      srsbutton.textContent = "START";
+
+      // Use a requestAnimationFrame-based stopwatch: mm:ss:ms
+      (function () {
+        let elapsed = 0; // milliseconds
+        let rafId = null;
+        let running = false;
+        let startTime = null;
+
+        function format(ms) {
+          const totalSeconds = Math.floor(ms / 1000);
+          const minutes = Math.floor(totalSeconds / 60);
+          const seconds = totalSeconds % 60;
+          const milliseconds = ms % 1000;
+          const mm = minutes < 10 ? "0" + minutes : minutes;
+          const ss = seconds < 10 ? "0" + seconds : seconds;
+          const mms = String(milliseconds).padStart(3, "0");
+          return `${mm}:${ss}:${mms}`;
+        }
+
+        function update() {
+          const now = Date.now();
+          elapsed = now - startTime;
+          display.innerHTML = format(elapsed);
+          rafId = requestAnimationFrame(update);
+        }
+
+        // initialize display
+        display.innerHTML = format(0);
+
+        srsbutton.onclick = function () {
+          if (!running) {
+            // start or resume
+            startTime = Date.now() - elapsed;
+            rafId = requestAnimationFrame(update);
+            running = true;
+            srsbutton.textContent = "STOP";
+          } else {
+            // stop/pause
+            cancelAnimationFrame(rafId);
+            rafId = null;
+            elapsed = Date.now() - startTime;
+            running = false;
+            // show RESUME if we've accumulated time, otherwise keep START
+            srsbutton.textContent = elapsed > 0 ? "RESUME" : "START";
+          }
+        };
+
+        // reset button should clear any running animation and reset time
+        resetbutton.onclick = function () {
+          if (running && rafId !== null) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+          running = false;
+          elapsed = 0;
+          startTime = null;
+          srsbutton.textContent = "START";
+          display.innerHTML = format(0);
+        };
+      })();
+
+      document.body.appendChild(container);
+    </script>
+  </body>
+</html>

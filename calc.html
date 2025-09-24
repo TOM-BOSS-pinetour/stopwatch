@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SIMPLE CALCULATOR</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- git -->
+    <!--  -->
+    <script>
+      const container = document.createElement("div");
+      const buttons = document.createElement("div");
+      const output = document.createElement("div");
+      const button1 = document.createElement("button");
+      const button2 = document.createElement("button");
+      const button3 = document.createElement("button");
+      const button4 = document.createElement("button");
+      const button5 = document.createElement("button");
+      const button6 = document.createElement("button");
+      const button7 = document.createElement("button");
+      const button8 = document.createElement("button");
+      const button9 = document.createElement("button");
+      const button0 = document.createElement("button");
+      const urjih = document.createElement("button");
+      const huvaah = document.createElement("button");
+      const nemeh = document.createElement("button");
+      const hasah = document.createElement("button");
+      const hariu = document.createElement("button");
+      const reset = document.createElement("button");
+      const dot = document.createElement("button");
+      const uldhuvaah = document.createElement("button");
+
+      container.classList.add("container-style");
+      buttons.classList.add("buttons");
+      output.classList.add("output");
+      button0.classList.add("button0");
+
+      urjih.classList.add("operator");
+      huvaah.classList.add("operator");
+      nemeh.classList.add("operator");
+      hasah.classList.add("operator");
+      uldhuvaah.classList.add("operator");
+
+      button1.textContent = "1";
+      button1.onclick = () => (output.innerHTML += "1");
+      button2.textContent = "2";
+      button2.onclick = () => (output.innerHTML += "2");
+      button3.textContent = "3";
+      button3.onclick = () => (output.innerHTML += "3");
+      button4.textContent = "4";
+      button4.onclick = () => (output.innerHTML += "4");
+      button5.textContent = "5";
+      button5.onclick = () => (output.innerHTML += "5");
+      button6.textContent = "6";
+      button6.onclick = () => (output.innerHTML += "6");
+      button7.textContent = "7";
+      button7.onclick = () => (output.innerHTML += "7");
+      button8.textContent = "8";
+      button8.onclick = () => (output.innerHTML += "8");
+      button9.textContent = "9";
+      button9.onclick = () => (output.innerHTML += "9");
+      button0.textContent = "0";
+      button0.onclick = () => (output.innerHTML += "0");
+
+      urjih.textContent = "*";
+      urjih.onclick = () => (output.innerHTML += "*");
+
+      uldhuvaah.textContent = "÷";
+      uldhuvaah.onclick = () => (output.innerHTML += "/");
+
+      nemeh.textContent = "+";
+      nemeh.onclick = () => (output.innerHTML += "+");
+
+      hasah.textContent = "-";
+      hasah.onclick = () => (output.innerHTML += "-");
+
+      dot.textContent = ".";
+      dot.onclick = () => (output.innerHTML += ".");
+
+      reset.textContent = "AC";
+      reset.onclick = () => (output.innerHTML = "");
+
+      huvaah.textContent = "%";
+      huvaah.onclick = () => {
+        output.innerHTML += "%";
+      };
+
+      hariu.textContent = "=";
+      hariu.onclick = () => {
+        try {
+          output.innerHTML = eval(output.innerHTML);
+        } catch {
+          output.innerHTML = "Error";
+        }
+      };
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          hariu.onclick();
+        }
+      });
+
+      container.appendChild(output);
+      container.appendChild(buttons);
+
+      buttons.appendChild(reset);
+      buttons.appendChild(huvaah);
+      buttons.appendChild(dot);
+      buttons.appendChild(uldhuvaah);
+      buttons.appendChild(button7);
+      buttons.appendChild(button8);
+      buttons.appendChild(button9);
+      buttons.appendChild(urjih);
+      buttons.appendChild(button4);
+      buttons.appendChild(button5);
+      buttons.appendChild(button6);
+      buttons.appendChild(hasah);
+      buttons.appendChild(button1);
+      buttons.appendChild(button2);
+      buttons.appendChild(button3);
+      buttons.appendChild(nemeh);
+      buttons.appendChild(button0);
+      buttons.appendChild(hariu);
+
+      document.body.appendChild(container);
+    </script>
+  </body>
+</html>
